@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.canvas.Canvas?>
+
+<AnchorPane fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cgvsu.GuiController">
+    <MenuBar prefHeight="32.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#onOpenModelMenuItemClick" text="📂 Load Model">
+            <accelerator>
+                <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="F"/>
+            </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#onSaveModelMenuItemClick" text="💾 Save Active Model">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="DOWN" meta="UP" shift="UP" shortcut="UP" code="S"/>
+                </accelerator>
+            </MenuItem>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Scene">
+            <MenuItem mnemonicParsing="false" onAction="#onPreviousModelMenuItemClick" text="◀ Previous Model"/>
+            <MenuItem mnemonicParsing="false" onAction="#onNextModelMenuItemClick" text="Next Model ▶"/>
+            <SeparatorMenuItem/>
+            <MenuItem mnemonicParsing="false" onAction="#onDeleteActiveModelClick" text="🗑 Delete Active Model"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" onAction="#onDeletePolygonMenuItemClick" text="✂ Delete Polygon (by index)"/>
+            <MenuItem mnemonicParsing="false" onAction="#onDeleteSelectedPolygonClick" text="🗑 Delete Selected Polygon"/>
+            <MenuItem mnemonicParsing="false" onAction="#onDeleteVertexMenuItemClick" text="✂ Delete Vertex"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" onAction="#onShowHelpClick" text="📖 Instructions"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="View">
+            <MenuItem mnemonicParsing="false" onAction="#onSetLightThemeMenuItemClick" text="☀ Light Theme"/>
+            <MenuItem mnemonicParsing="false" onAction="#onSetDarkThemeMenuItemClick" text="🌙 Dark Theme"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Camera Options">
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraForward" text="↑ Zoom In">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="UP"/>
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraBackward" text="↓ Zoom Out">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="DOWN"/>
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraLeft" text="← Left">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="LEFT"/>
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraRight" text="Right →">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="RIGHT"/>
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraUp" text="⬆ Up">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="W"/>
+                </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleCameraDown" text="⬇ Down">
+                <accelerator>
+                    <KeyCodeCombination alt="UP" control="UP" meta="UP" shift="UP" shortcut="UP" code="S"/>
+                </accelerator>
+            </MenuItem>
+        </Menu>
+    </MenuBar>
+
+    <ToolBar prefHeight="48.0" layoutY="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="tool-bar">
+        <Button text="📂 Load" onAction="#onOpenModelMenuItemClick" styleClass="primary-button" prefWidth="90"/>
+        <Button text="💾 Save" onAction="#onSaveModelMenuItemClick" styleClass="success-button" prefWidth="90"/>
+        <Separator/>
+        <Button text="◀ Prev" onAction="#onPreviousModelMenuItemClick" styleClass="nav-button" prefWidth="90"/>
+        <Button text="Next ▶" onAction="#onNextModelMenuItemClick" styleClass="nav-button" prefWidth="90"/>
+        <Button text="🗑 Del Model" onAction="#onDeleteActiveModelClick" styleClass="danger-button" prefWidth="110"/>
+        <Separator/>
+        <Button text="✂ Del Polygon" onAction="#onDeletePolygonMenuItemClick" styleClass="danger-button" prefWidth="120"/>
+        <Button text="🗑 Del Selected" onAction="#onDeleteSelectedPolygonClick" styleClass="danger-button" prefWidth="120"/>
+        <Button text="✂ Del Vertex" onAction="#onDeleteVertexMenuItemClick" styleClass="danger-button" prefWidth="120"/>
+        <Separator/>
+        <Button text="☀ Light" onAction="#onSetLightThemeMenuItemClick" styleClass="theme-button" prefWidth="80"/>
+        <Button text="🌙 Dark" onAction="#onSetDarkThemeMenuItemClick" styleClass="theme-button-dark" prefWidth="80"/>
+    </ToolBar>
+
+    <Canvas fx:id="canvas" width="1600" height="820" AnchorPane.topAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="40.0"/>
+
+    <HBox fx:id="statusBar" styleClass="status-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="40.0" spacing="15">
+        <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+        <Separator orientation="VERTICAL"/>
+        <Label fx:id="modelsInfoLabel" text="Models: 0" styleClass="status-info"/>
+        <Label fx:id="activeModelLabel" text="Active: None" styleClass="status-info"/>
+        <Label fx:id="modelStatsLabel" text="Vertices: 0 | Polygons: 0" styleClass="status-info"/>
+    </HBox>
+</AnchorPane>
